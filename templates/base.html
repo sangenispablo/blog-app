@@ -6,10 +6,27 @@
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
     </head>
     <body>
-        <header>
-            <h1><a href="{% url 'home' %}">Mi Blog</a></h1>
-        </header>
         <div>
+            <header>
+                <div class="nav-left">
+                    <h1><a href="{% url 'home' %}">Mi Blog</a></h1>
+                </div>
+                <div class="nav-right">
+                    <a href="{% url 'post_new' %}">+ Nuevo Post</a>
+                </div>
+            </header>
+
+            {# Verifico si esta logeado el usuario #}
+            {% if user.is_authenticated %}
+                <p>Hola {{ user.username }}</p>
+                <p><a href="{% url 'logout' %}">Logout</a></p>
+            {% else %}
+                <p>No estas logeado</p>
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+
+
+            {# Contenido principal #}
             {% block content %}
             {% endblock content %}
         </div>
